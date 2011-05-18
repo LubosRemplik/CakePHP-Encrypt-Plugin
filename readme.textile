@@ -12,6 +12,7 @@ http://www.madboa.com/geek/gpg-quickstart/
 h2. Configuration
 
 Configure and use config/config.php.default
+Make sure /home/username/.gnupg is set and .gnupg folder contains public key for username@example.com 
 
 h2. Usage
 
@@ -21,13 +22,13 @@ var $uses = array('Encrypt.Pgp');
 // encrypt email body
 if(Configure::read('PGPMail.enabled')) {
 	$textBody = $this->Pgp->format($textBody);
-	$textBody = $this->Pgp->encrypt("/home/lubos/.gnupg", $this->data['Email']['to'], $textBody);
+	$textBody = $this->Pgp->encrypt("/home/username/.gnupg", "username@example.com", $textBody);
 }
 ...
 // encrypt attachments
 if(Configure::read('PGPMail.enabled') && is_file($tmpfname)) {
 	$fileContents = base64_encode(file_get_contents($tmpfname));
-	$fileContents = $this->Pgp->encrypt("/home/lubos/.gnupg", $this->data['Email']['to'], $fileContents);
+	$fileContents = $this->Pgp->encrypt("/home/username/.gnupg", "username@example.com", $fileContents);
 	$tmpfname .= "_base64_encoded.pgp";
 	file_put_contents($tmpfname, $fileContents);
 }
