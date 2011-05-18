@@ -1,0 +1,33 @@
+h1. CakePHP Encrypt Plugin
+
+A CakePHP Plugin used for encrypt/decrypt data
+
+Contains PGP component for email encryption via GnuPG http://www.gnupg.org/
+Some reading about GnuPG
+http://www.kelv.net/programming/pgp.php
+http://www.seanodonnell.com/code/?id=8
+http://homepages.inf.ed.ac.uk/da/id/gpg-howto.shtml
+http://www.madboa.com/geek/gpg-quickstart/
+
+h2. Configuration
+
+Configure and use config/config.php.default
+
+h2. Usage
+
+bc. 
+var $uses = array('Encrypt.Pgp');
+...
+// encrypt email body
+if(Configure::read('PGPMail.enabled')) {
+	$textBody = $this->Pgp->format($textBody);
+	$textBody = $this->Pgp->encrypt("/home/lubos/.gnupg", $this->data['Email']['to'], $textBody);
+}
+...
+// encrypt attachments
+if(Configure::read('PGPMail.enabled') && is_file($tmpfname)) {
+	$fileContents = base64_encode(file_get_contents($tmpfname));
+	$fileContents = $this->Pgp->encrypt("/home/lubos/.gnupg", $this->data['Email']['to'], $fileContents);
+	$tmpfname .= "_base64_encoded.pgp";
+	file_put_contents($tmpfname, $fileContents);
+}
