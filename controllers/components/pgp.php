@@ -16,7 +16,9 @@ class PgpComponent extends Object {
 		$recipient = escapeshellarg($recipient);
 		$message = escapeshellarg($message);
 		
-		$command = "/home/lubos/encrypt.sh " . $home . " " . $recipient . " " . $message . "";
+		$script = ROOT.DS."plugins".DS."encrypt".DS."vendors".DS."encrypt.sh";
+		@chmod($script, '+x');
+		$command = $script." ".$home." ".$recipient." ".$message;
 		
 		if ($debugThis) debug($command);
 		
