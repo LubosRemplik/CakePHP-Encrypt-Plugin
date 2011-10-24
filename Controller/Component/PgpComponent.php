@@ -1,15 +1,38 @@
 <?php
+/**
+ * Pgp Component 
+ **/
+class PgpComponent extends Component {
+    
+    public $components = array();
 
-class PgpComponent extends Object {
-	
-	function format($text) {
+    function __construct(ComponentCollection $collection, $settings = array()) {
+        parent::__construct($collection, $settings);
+    }
+
+    public function initialize($controller) {
+    }
+
+    public function startup($controller) {
+    }
+
+    public function beforeRender($controller) {
+    }
+
+    public function shutdown($controller) {
+    }
+
+    public function beforeRedirect($controller, $url, $status=null, $exit=true) {
+    }
+
+	public function format($text) {
 		$text = str_replace("'", "", $text);
 		$text = str_replace("(", "-", $text);
 		$text = str_replace(")", "-", $text);
 		return $text;
 	}
 	
-	function encrypt($home = "/home/lubos/.gnupg", $recipient, $message) {
+	public function encrypt($home = "/home/lubos/.gnupg", $recipient, $message) {
 		$debugThis = Configure::read('PGPMail.debug');
 		
 		$home = escapeshellarg($home);

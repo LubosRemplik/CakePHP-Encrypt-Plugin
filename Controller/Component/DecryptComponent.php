@@ -1,42 +1,30 @@
 <?php
 /**
- * Decrypt Component
+ * Decrypt Component 
  **/
-class DecryptComponent extends Object {
+class DecryptComponent extends Component {
     
     public $components = array();
 
-    //called before Controller::beforeFilter()
-    public function initialize(&$controller, $settings = array()) {
-        // saving the controller reference for later use
-        $this->controller =& $controller;
+    function __construct(ComponentCollection $collection, $settings = array()) {
+        parent::__construct($collection, $settings);
     }
 
-    //called after Controller::beforeFilter()
-    public function startup(&$controller) {
-    
+    public function initialize($controller) {
     }
 
-    //called after Controller::beforeRender()
-    public function beforeRender(&$controller) {
-    
+    public function startup($controller) {
     }
 
-    //called after Controller::render()
-    public function shutdown(&$controller) {
-    
+    public function beforeRender($controller) {
     }
 
-    //called before Controller::redirect()
-    public function beforeRedirect(&$controller, $url, $status=null, $exit=true) {
-    
+    public function shutdown($controller) {
     }
 
-    public function redirectSomewhere($value) {
-        // utilizing a controller method
-        $this->controller->redirect($value);
+    public function beforeRedirect($controller, $url, $status=null, $exit=true) {
     }
-	
+
 	public function hex2bin($h) {
 		if(!is_string($h)) return null;
 		$r = '';
